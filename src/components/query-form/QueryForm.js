@@ -77,7 +77,7 @@ const QueryForm = () => {
     }
 
     return(
-        <>
+        <div class="queryBox">
         <Card style={{ width: '18rem', textAlign: 'center' }}>
         <Card.Body>
             <Card.Title>Test Queries</Card.Title>
@@ -118,7 +118,7 @@ const QueryForm = () => {
         </ul>            
         ) : null
         }
-        </>
+        </div>
     )
 };
 
