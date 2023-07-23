@@ -3,6 +3,8 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import './QueryForm.css';
 
 
 const QueryForm = () => {
@@ -77,7 +79,7 @@ const QueryForm = () => {
     }
 
     return(
-        <div class="queryBox">
+        <Container className="d-flex justify-content-center mycard">
         <Card style={{ width: '18rem', textAlign: 'center' }}>
         <Card.Body>
             <Card.Title>Test Queries</Card.Title>
@@ -118,7 +120,7 @@ const QueryForm = () => {
         </ul>            
         ) : null
         }
-        </div>
+        </Container>
     )
 };
 

@@ -4,14 +4,15 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import './Login.css'
+import './Register.css'
 
-function LoginForm() {
+function RegisterForm() {
 
   const [formData, setFormData] = React.useState(
   {
     regUserName: "",
     regUserPassword: "",
+    regUserEmail: "",
     logUserName: "",
     logUserPassword: ""
   });
@@ -32,12 +33,13 @@ function LoginForm() {
     console.log(formData);
 
     const data = {
-      username: formData.logUserName,
-      password: formData.logUserPassword
+      login: formData.regUserName,
+      password: formData.regUserPassword,
+      email: formData.regUserEmail
     };
 
     try {
-      const response = await axios.post('http://localhost:5001/api/user/login', data, {
+      const response = await axios.post('http://localhost:5001/api/user/register', data, {
         withCredentials: true
       });
       console.log(response);
@@ -51,7 +53,7 @@ function LoginForm() {
        <Container className="d-flex justify-content-center mycard">
        <Card style={{ width: '18rem', textAlign: 'center' }}>
        <Card.Body>
-           <Card.Title>Login</Card.Title>
+           <Card.Title>Register User</Card.Title>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>User name</Form.Label>
@@ -60,8 +62,8 @@ function LoginForm() {
                   onChange={handleChange}
                   placeholder="myUserName"
                   aria-label="login input"
-                  name="logUserName"
-                  value={formData.logUserName}
+                  name="regUserName"
+                  value={formData.regUserName}
             />
             <Form.Label style={{marginTop: '10px'}}>Password</Form.Label>
             <Form.Control 
@@ -69,8 +71,17 @@ function LoginForm() {
                   onChange={handleChange}
                   placeholder="myPassword"
                   aria-label="password input"
-                  name="logUserPassword"
-                  value={formData.logUserPassword}
+                  name="regUserPassword"
+                  value={formData.regUserPassword}
+            />
+            <Form.Label style={{marginTop: '10px'}}>Email</Form.Label>
+            <Form.Control 
+                  type="email" 
+                  onChange={handleChange}
+                  placeholder="myEmail"
+                  aria-label="email input"
+                  name="regUserEmail"
+                  value={formData.regUserEmail}
             />
         </Form.Group>
         <Button variant="primary" type="submit">
@@ -83,4 +94,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default RegisterForm;

@@ -24,7 +24,12 @@ const MyNavbar = () => {
             <Nav className="me-auto">
               <Nav.Link>
                 <NavLink to="/" className="nav-style">
-                Home
+                Login
+                </NavLink>
+              </Nav.Link>
+              <Nav.Link>
+                <NavLink to="/register" className="nav-style">
+                  Register
                 </NavLink>
               </Nav.Link>
               <Nav.Link>
