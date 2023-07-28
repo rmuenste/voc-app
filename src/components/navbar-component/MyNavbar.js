@@ -37,6 +37,11 @@ const MyNavbar = () => {
                 Query
                 </NavLink>
               </Nav.Link>
+              <Nav.Link>
+                <NavLink to="/configure" className="nav-style">
+                Trainer
+                </NavLink>
+              </Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">

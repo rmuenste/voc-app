@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
+import InputGroup from 'react-bootstrap/InputGroup';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../AuthContext'; 
 import './Register.css'
 
 function RegisterForm() {
@@ -16,6 +20,16 @@ function RegisterForm() {
     logUserName: "",
     logUserPassword: ""
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const {name, value, type, checked} = event.target;
@@ -33,7 +47,7 @@ function RegisterForm() {
     console.log(formData);
 
     const data = {
-      login: formData.regUserName,
+      username: formData.regUserName,
       password: formData.regUserPassword,
       email: formData.regUserEmail
     };
@@ -43,6 +57,14 @@ function RegisterForm() {
         withCredentials: true
       });
       console.log(response);
+      if (response.data.loggedIn) {
+        setIsLoggedIn(true);
+        return navigate("/welcome");
+      }
+      else {
+        setIsLoggedIn(false);
+      }
+
     } catch (error) {
       console.error('Error:', error);
     }
@@ -66,19 +88,28 @@ function RegisterForm() {
                   value={formData.regUserName}
             />
             <Form.Label style={{marginTop: '10px'}}>Password</Form.Label>
+            <InputGroup>
             <Form.Control 
-                  type="text" 
+                  type={showPassword ? 'text' : 'password'}
                   onChange={handleChange}
                   placeholder="myPassword"
                   aria-label="password input"
                   name="regUserPassword"
                   value={formData.regUserPassword}
             />
+            <Button
+              variant="outline-none"
+              onClick={togglePasswordVisibility}
+              style={{ marginLeft: '5px' }}
+            >
+            {showPassword ? (<FaEyeSlash/>) : (<FaEye/>)}
+          </Button>
+            </InputGroup>
             <Form.Label style={{marginTop: '10px'}}>Email</Form.Label>
             <Form.Control 
                   type="email" 
                   onChange={handleChange}
-                  placeholder="myEmail"
+                  placeholder="MyEmail"
                   aria-label="email input"
                   name="regUserEmail"
                   value={formData.regUserEmail}
