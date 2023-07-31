@@ -7,10 +7,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authReducer';
 import formReducer from './FormReducer';
+import vocReducer from './vocReducer';
 import { Provider } from 'react-redux'
 
 
-const store = configureStore({reducer: {form: formReducer, auth: authReducer}});
+const store = configureStore({reducer: {form: formReducer, auth: authReducer, voc: vocReducer}});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

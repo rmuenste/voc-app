@@ -1,5 +1,7 @@
 const initialState = {
-    formData: {}
+    formData: {
+      words: []
+    }
 };
 
 const formReducer = (state = initialState, action) => {

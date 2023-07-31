@@ -28,8 +28,6 @@ function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -63,14 +61,13 @@ function LoginForm() {
 
       console.log(response);
       if (response.data.loggedIn) {
-        setIsLoggedIn(response.data.loggedIn)
         if (!userLoggedIn) {
           dispatch({type: 'auth/login', payload: true});
         }
         console.log("Hello logged in user.");
         return navigate("/welcome");
       } else {
-        setIsLoggedIn(false);
+        dispatch({type: 'auth/login', payload: false});
       }
 
     } catch (error) {

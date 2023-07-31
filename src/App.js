@@ -9,6 +9,9 @@ import RegisterForm from './components/register-form/Register';
 import Welcome from './components/welcome/Welcome';
 import { AuthProvider } from './AuthContext';
 import ConfigureForm from './components/configure-form/Configure';
+import TrainerForm from './components/trainer-form/Trainer';
+import Result from './components/result/Result';
+import Profile from './components/profile/Profile';
 
 const App = () => {
   
@@ -22,6 +25,9 @@ const App = () => {
         <Route exact path="/query" Component={QueryForm} />
         <Route exact path="/welcome" Component={Welcome} />
         <Route exact path="/configure" Component={ConfigureForm} />
+        <Route exact path="/trainer" Component={TrainerForm} />
+        <Route exact path="/result" Component={Result} />
+        <Route exact path="/profile" Component={Profile} />
       </Routes>
       </main>
     </AuthProvider>

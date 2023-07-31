@@ -5,10 +5,13 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useSelector } from 'react-redux';
 
 const MyNavbar = () => {
 
   const [expanded, setExpanded] = useState(false);
+
+  const userLoggedIn = useSelector((state) => state.auth.loggedIn);
 
   const toggleNavbar = () => {
     setExpanded(!expanded);
@@ -42,6 +45,18 @@ const MyNavbar = () => {
                 Trainer
                 </NavLink>
               </Nav.Link>
+              {userLoggedIn ? 
+                (
+                <Nav.Link>
+                  <NavLink to="/profile" className="nav-style">
+                  Profile
+                  </NavLink>
+                </Nav.Link>
+                ) :
+                (
+                  null
+                )
+              }
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">

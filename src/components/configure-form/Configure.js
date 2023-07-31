@@ -7,6 +7,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FaExchangeAlt } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
 import './Configure.css';
 
 
@@ -15,14 +17,17 @@ const ConfigureForm = () => {
         {
           queryType: "firstLetterQuery",
           words: [],
-          queryLetter: 'A',
           fromLang: 'Ru',
           toLang: 'Ger',
           numWords: 30
         }
     );
 
-    const allWordsQuery = async () => {
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const executeQueryAndContinue = async () => {
 
         try {
             const response = await axios.get("http://localhost:5001/api/getwords");
@@ -33,23 +38,8 @@ const ConfigureForm = () => {
                 words: response.data
                 }
             });
-
-        } catch(error) {
-            console.log(`Error: ${error}`);
-        }
-    };
-
-    const firstLetterQuery = async () => {
-
-        try {
-            const response = await axios.get("http://localhost:5001/api/getwords");
-            // This is actually executed asynchronously, but it is made sure that the data will be updated before the next render 
-            setFormData( prevFormData => {
-                return {
-                ...prevFormData,
-                words: response.data
-                }
-            });
+            dispatch({type: 'voc/words', payload: response.data});
+            navigate('/trainer', {state: {propsData: response.data}});
 
         } catch(error) {
             console.log(`Error: ${error}`);
@@ -72,16 +62,7 @@ const ConfigureForm = () => {
     const handleSubmit = (event) => {
       event.preventDefault();
       console.log(formData)
-      if(formData.queryType === "firstLetterQuery") {
-        console.log(`Doing a firstLetterQuery with the letter: ${formData.queryLetter}`);
-        firstLetterQuery();
-      } 
-      else if(formData.queryType === "allWordsQuery") {
-        allWordsQuery();
-      }
-      else {
-        console.log("Doing an empty query");
-      }
+      executeQueryAndContinue();
     }
 
     return(
@@ -161,14 +142,6 @@ const ConfigureForm = () => {
         </Form>
         </Card.Body>
         </Card>
-        { (formData.words.length > 0) ? (
-        <ul>
-            {formData.words.slice(0,1).map((word, index) => (
-            <li key={index}>{word.german_word}</li>
-            ))}
-        </ul>            
-        ) : null
-        }
         </Container>
     )
 };
