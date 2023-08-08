@@ -39,6 +39,9 @@ const ConfigureForm = () => {
                 }
             });
             dispatch({type: 'voc/words', payload: response.data});
+
+            // Assign a numeric value to the numWords variable
+            dispatch({type: 'voc/num_words', payload: parseInt(formData.numWords)});
             navigate('/trainer', {state: {propsData: response.data}});
 
         } catch(error) {
@@ -49,7 +52,7 @@ const ConfigureForm = () => {
     const handleChange = (event) => {
 
         const {name, value, type, checked} = event.target;
-        console.log(name);
+        console.log(value);
         setFormData( prevFormData => {
             return {
               ...prevFormData,
@@ -80,11 +83,11 @@ const ConfigureForm = () => {
                     name="numWords"
                     style={{marginBottom: '1rem'}}
                 >
-                <option value="easy">easy(30 words)</option>
-                <option value="easy2">still easy(50 words)</option>
-                <option value="medium">medium(75 words)</option>
-                <option value="hard">hard(100 words)</option>
-                <option value="insave">insane(All words)</option>
+                <option value="30">easy(30 words)</option>
+                <option value="50">still easy(50 words)</option>
+                <option value="75">medium(75 words)</option>
+                <option value="100">hard(100 words)</option>
+                <option value="0">insane(All words)</option>
                 </Form.Select>
                 </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
